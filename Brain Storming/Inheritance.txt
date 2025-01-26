@@ -1,0 +1,20 @@
+Player{
+   name
+   team
+   opposition
+}
+
+Batsman extends Player{
+	runs;
+}
+
+Bowler extends Player{
+	runs;
+	wickets;
+}
+
+WicketKeeper extends Batsman{
+	stumpings;
+	catches;
+}
+

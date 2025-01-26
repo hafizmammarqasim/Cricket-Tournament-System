@@ -1,0 +1,17 @@
+Captain(Lahore)
+Lahore
+Lahore
+Lahore
+Lahore
+Multan(Captain)
+Multan
+Multan
+Islamabad(Captain)
+Islamabad
+Islamabad
+Karachi(Captain)
+Karachi
+Karachi
+Peshawar(Captain)
+Peshawar
+Peshawar

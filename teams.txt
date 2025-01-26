@@ -1,0 +1,6 @@
+Lahore,Shaheen,Aqib,Lahore
+Karachi,Shan,Wasim,Karachi
+Islamabad,Shadab,Misbah,Islamabad
+Multan,Rizwan,Zadif,Multan
+Quetta,Saud,Viv Richard,Quetta
+Peshwar,Babar Azam,Darren Sammy,Peshawar

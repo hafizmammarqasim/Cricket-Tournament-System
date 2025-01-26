@@ -1,0 +1,112 @@
+<Teams> team;
+<Matches> matches; 
+<Venue> venues;
+
+//Team Array Contains
+{
+	1. Lahore
+	2. Karachi
+	3. Multan
+	4. Islamabad
+	5. Peshawar
+	6. Quetta
+}
+
+//By algorithm
+{ prev =
+
+	Lahore vs Karachi = match[0] = won By   
+	Lahore vs Multan  = match[1]
+	Lahore vs Islamabad=match[2]
+	Lahore vs Peshawar
+	Lahore vs Quetta
+	Karachi vs Multan
+	Karachi vs Islamabad
+	Karachi vs Peshawar
+	Karachi vs Quetta
+	Multan vs Islamabad
+	Multan vs Peshawar
+	Multan vs Quetta
+	Islamabad vs Peshawar
+	Islamabad vs Quetta
+	Peshawar vs Quetta
+	------------------
+	if((team(i)!=previous1 && team(i)!=previous2) && (team(j)!= previous1 && team(j)!= previous2))
+		if(match.getMatchStatus()!=true)
+	match.add(team(i),team(j));
+	match.getMatchStatus(true);
+	previous1 = team(i);
+	previous2 = team(j);
+
+	------Team 1-----
+	Peshawar vs Quetta
+	Islamabad vs Quetta
+	Lahore vs Islamabad
+	Lahore vs Peshawar
+	Lahore vs Quetta
+	------Team 2------
+	Karachi vs Multan
+	Lahore vs Multan
+	Karachi vs Peshawar
+	Karachi vs Quetta
+	------Team 3------
+	Multan vs Islamabad
+	Multan vs Peshawar
+	Multan vs Quetta
+	------Team 4------
+	Islamabad vs Peshawar
+	Karachi vs Islamabad
+	------Team 5------
+	Lahore vs Karachi
+	------------------
+	15/2 = 7
+	while(i<7 && j>7){
+		
+	}
+
+	5
+	4
+	3
+	2
+	1
+	
+}
+
+matches.add(team)
+	schedule = new ArrayList<>;
+	while(!remainingMatches.isEmpty()){
+		for(int i=0; i<15; i++){
+			if(remainingMatches.get(i)!=null && !(schedule.get(schedule.size-1).teamsComparison())
+				
+		}
+	}
+
+	public boolean teamsComparison(Object o){
+		if(this == o) return true;
+		if(this.getClass != o.getClass()) return false;
+		
+		tempSchedule = (Schedule)o;
+		if(this.team1.getName().equals(tempSchedule.getTeam1().getName() || this.team1.getName().equals(tempSchedule.getTeam2().getName()) || this.team2.getName().equals(tempSchedule.getTeam1().getName() || this.team2.getName().equals(tempSchedule.getTeam2().getName()))){
+		return true;
+} else {
+	return false;
+	}
+
+		
+	}
+	
+	Multan vs Islamabad  
+	Lahore vs Multan
+	Karachi vs Peshawar
+	Lahore vs Peshawar
+	Karachi vs Multan
+	Lahore vs Quetta
+	Karachi vs Islamabad
+	Lahore vs Islamabad
+	Karachi vs Quetta
+	Lahore vs Karachi
+	Multan vs Peshawar
+	Multan vs Quetta
+	Islamabad vs Peshawar
+	Islamabad vs Quetta
+	Peshawar vs Quetta

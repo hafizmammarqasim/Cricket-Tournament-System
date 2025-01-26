@@ -1,0 +1,12 @@
+Shaheen,Lahore,Karachi,23,3,true
+Sikandar Raza,Lahore,Karachi,78,2,true
+Abdullah Shafiq,Lahore,Karachi,32,0,true
+Kamran Ghulam,Lahore,Karachi,40,0,true
+Fakhar Zaman,Lahore,Karachi,0,0,true
+Rassie Van Der Dussen,Lahore,Karachi,0,0,true
+Shan Masood,Karachi,Lahore,23,0,true
+Sharjeel Khan,Karachi,Lahore,45,0,true
+Hasan Ali,Karachi,Lahore,2,1,true
+Qasim Akram,Karachi,Lahore,56,2,true
+Irfan Khan,Karachi,Lahore,38,0,true
+Kieron Pollard,Karachi,Lahore,0,1,true

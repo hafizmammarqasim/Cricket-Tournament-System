@@ -1,0 +1,13 @@
+Team 1,Team 2,Team 1 score,Team 1 WFallen, Team 2 WTaken, Team 2score,Team 2 WFallen, Team1 WTaken, Man Of The Match, Total Matches
+lhr, kar, 200, 4, 4, 180, 10, 10, Shaheen Shah Afridi, 30
+kar, que, 160, 8, 8, 163, 5, 5, Shan Masood, 31
+------------------------------------------------------------------------------------------------------
+Schedule 
+   |
+   V
+Read Match Stats
+   |
+   V
+
+
+	

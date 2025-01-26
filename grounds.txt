@@ -1,0 +1,4 @@
+Gadafi,Lahore,34000,83
+National Stadium,Karachi,31000,80
+Pindi Cricket Stadium,Islamabad,20000,91
+Arbab Niaz Stadium,Peshawar,25000,87
