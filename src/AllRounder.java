@@ -1,4 +1,4 @@
-public class AllRounder extends Batsman implements WicketsTaken{
+public class AllRounder extends Player implements RunsScored, WicketsTaken{
     private int runsScored;
     private int wicketsTaken;
 

@@ -112,7 +112,7 @@ public class Tournament {
                     remainingMatches.addNewMatch(matches); }
             }
 
-            File file = new File("MatchResult");
+            File file = new File("match.txt");
             if(file.exists()) {
                 for (Match match : remainingMatches.getMatches()) {
                     readWinStatus(match,file);
@@ -150,7 +150,7 @@ public class Tournament {
                 }
             }
             schedule.displayMatches();
-           match(schedule.getMatches().get(0));
+           match(schedule.getMatches().getFirst());
         }
     }
 
@@ -187,12 +187,11 @@ public class Tournament {
 
     public void readWinStatus(Match match, File file){
         try(BufferedReader reader = new BufferedReader(new FileReader(file))){
-            reader.readLine();
             String line;
             while ((line = reader.readLine())!=null){
                 String[] data = line.split(",");
-                if(match.getTeam1().equals(data[0]) && match.getTeam2().equals(data[1])){
-                    match.setResult(data[2]);
+                if(match.getTeam1().getName().equals(data[0]) && match.getTeam2().getName().equals(data[1])){
+                    match.assignData(data[2],data[3],data[4],data[5],data[6],data[7],data[8],data[9]);
                     return;
                 }
             }
@@ -406,7 +405,6 @@ public class Tournament {
     }
 
     public void teamScores(Match match) throws IOException{
-        int TotalScoreOfT1, TotalScoreOfT2;
 
         if(!match.getPlayStatus()) {
             System.out.println("Enter " + match.getTeam1().getName() + " wickets fallen");
@@ -416,17 +414,19 @@ public class Tournament {
             playerWickets(match.getTeam2());
             match.setTeam1WicketsFallen(teamOneWF);
             match.setTeam2WicketsTaken(teamOneWF);
-            System.out.println("Enter " + match.getTeam2().getName() + "wickets fallen");
+            System.out.println("Enter " + match.getTeam2().getName() + " wickets fallen");
             int teamTwoWF = myObj.nextInt();
             myObj.nextLine();
-            match.setTeam2WicketsFallen(playerScores(teamTwoWF, match.getTeam2()));
-            match.setTeam2WicketsTaken(teamTwoWF);
+            match.setTeam2Runs(playerScores(teamTwoWF, match.getTeam2()));
+            match.setTeam2WicketsFallen(teamTwoWF);
             match.setTeam1WicketsTaken(teamTwoWF);
             playerWickets(match.getTeam1());
 
             writePlayersRunsToFile(match.getTeam1());
             writePlayersRunsToFile(match.getTeam2());
             match.setPlayStatus(true);
+            match.decideWinner();
+            writeMatchData(match);
 
         }
         displayData(match);
@@ -478,14 +478,13 @@ public class Tournament {
                         if(player!=null){
                        if(player.getName().equalsIgnoreCase(data[0]) && opposition.getName().equals(data[2])) {
                            switch (player) {
-                               case AllRounder allrounder -> allrounder.assignData(data[0], data[1], data[2], data[3], data[5], data[6]);
-                               case Batsman batter -> batter.assignData(data[0], data[1], data[2], data[3], data[5]);
-                               case Bowler bowler -> bowler.assignData(data[0], data[1], data[2], data[3], data[5]);
-                               case Keeper keeper -> keeper.assignData(data[0], data[1], data[2], data[3], data[5], data[6]);
+                               case AllRounder allrounder -> allrounder.assignData(data[0], data[1], data[2], data[3], data[4], data[5]);
+                               case Batsman batter -> batter.assignData(data[0], data[1], data[2], data[3], data[4]);
+                               case Bowler bowler -> bowler.assignData(data[0], data[1], data[2], data[3], data[4]);
+                               case Keeper keeper -> keeper.assignData(data[0], data[1], data[2], data[3], data[4], data[5]);
                                default -> System.out.println("No Required Player Type Found");
                            }
-                              player.displayData();
-                              myObj.nextLine();
+
                                break;
                            }
                        }
@@ -500,15 +499,16 @@ public class Tournament {
 
     public int playerScores(int wickets, Team team){
         int score;
-       int teamRuns = 0;
-        for(int i=0; i<wickets; i++){
-            Player player = team.getPlayer().get(i);
-            if(player instanceof RunsScored batter) {
+       int teamRuns = 0, counter =0;
+
+        for(Player player:team.getPlayer()){
+            if(player instanceof RunsScored batter && counter<wickets ) {
                 System.out.println("Enter Score of " + player.getName());
                 score = myObj.nextInt();
                 batter.setRunsScored(score);
                 player.getStats().setTotalRuns(score);
                 teamRuns += score;
+                counter++;
             }
         }
         return teamRuns;
@@ -527,10 +527,13 @@ public class Tournament {
 
     public void displayData(Match match){
 
-        ArrayList <Player> batsmenTeam1 = match.getTeam1().getPlayer();
-        ArrayList <Player> bowlerTeam1 = match.getTeam1().getPlayer();
-        ArrayList <Player> batsmenTeam2 = match.getTeam2().getPlayer();
-        ArrayList <Player> bowlerTeam2 = match.getTeam2().getPlayer();
+        ArrayList <RunsScored> batsmenTeam1 = new ArrayList<>();
+        ArrayList <WicketsTaken> bowlerTeam1 = new ArrayList<>();
+        ArrayList <RunsScored> batsmenTeam2 = new ArrayList<>();
+        ArrayList <WicketsTaken> bowlerTeam2 = new ArrayList<>();
+
+        listsOfPlayers(bowlerTeam1,batsmenTeam1,match.getTeam1().getPlayers());
+        listsOfPlayers(bowlerTeam2,batsmenTeam2,match.getTeam2().getPlayers());
         batsmenTeam1.sort(new SortingRuns());
         //Team 2 Sorting Of Wickets
         bowlerTeam2.sort(new SortingWickets());
@@ -543,58 +546,101 @@ public class Tournament {
         scoreCard(match);
     }
 
-    public void matchSummary(ArrayList <Player> batsmenTeam1, ArrayList <Player> bowlerTeam1, ArrayList <Player> batsmenTeam2, ArrayList <Player> bowlerTeam2 ){
+    public void listsOfPlayers(ArrayList<WicketsTaken> bowlerList, ArrayList<RunsScored> batsmanList, ArrayList<Player> playersList){
+        for(Player player:playersList) {
+            if (player instanceof Batsman batter)
+                batsmanList.add(batter);
+            else if(player instanceof Bowler bowler)
+                bowlerList.add(bowler);
+            else if(player instanceof AllRounder allRounder){
+                    allRounder.displayData();
+                    batsmanList.add(allRounder);
+                    bowlerList.add(allRounder);
+                }
+        }
+    }
+
+    public void matchSummary(ArrayList <RunsScored> batsmenTeam1, ArrayList <WicketsTaken> bowlerTeam1, ArrayList <RunsScored> batsmenTeam2, ArrayList <WicketsTaken> bowlerTeam2 ){
         //Team 1 Sorting Of Runs
+        ArrayList<Player> batters1 = new ArrayList<>();
+        ArrayList<Player> bowler1 = new ArrayList<>();
+        ArrayList<Player> batters2 = new ArrayList<>();
+        ArrayList<Player> bowler2 = new ArrayList<>();
+
+        for(RunsScored batter: batsmenTeam1){
+            Player p1 = (Player) batter;
+            batters1.add(p1);
+        }
+
+        for(WicketsTaken bowler: bowlerTeam1){
+            Player p2 = (Player) bowler;
+            bowler1.add(p2);
+        }
+
+        for(RunsScored batter: batsmenTeam2){
+            Player p1 = (Player) batter;
+            batters2.add(p1);
+        }
+
+        for(WicketsTaken bowler: bowlerTeam2){
+            Player p2 = (Player) bowler;
+            bowler2.add(p2);
+        }
+
 
         System.out.println("-----Match Summary----");
-        System.out.println(batsmenTeam1.getFirst().getTeam()+" Batting");
+        System.out.println(batters1.getFirst().getTeam()+" Batting");
 
-        for(int i=0; i<3; i++){
-            System.out.println(batsmenTeam1.get(i).getName() + batsmenTeam1.get(i).getRunsScored());
+        for(int i=0; i<2; i++){
+            System.out.println(batters1.get(i).getName() +" "+ batsmenTeam1.get(i).getRunsScored());
         }
 
         System.out.println("-----------------------------------");
 
-        System.out.println(batsmenTeam2.getFirst().getTeam()+" Bowling");
-        for(int i=0; i<3; i++){
-            System.out.println(bowlerTeam2.get(i).getName() + bowlerTeam2.get(i).getWicketsTaken());
+        System.out.println(bowler2.getFirst().getTeam()+" Bowling");
+        for(int i=0; i<2; i++){
+            System.out.println(bowler2.get(i).getName() +" "+ bowlerTeam2.get(i).getWicketsTaken());
         }
         System.out.println("-----------------------------------");
 
-        System.out.println(batsmenTeam2.getFirst().getTeam()+" Batting");
-        for(int i=0; i<3; i++){
-            System.out.println(batsmenTeam2.get(i).getName() + batsmenTeam2.get(i).getRunsScored());
+        System.out.println(batters2.getFirst().getTeam()+" Batting");
+        for(int i=0; i<2; i++){
+            System.out.println(batters2.get(i).getName() +" "+ batsmenTeam2.get(i).getRunsScored());
         }
         System.out.println("-----------------------------------");
 
-        System.out.println(batsmenTeam1.getFirst().getTeam()+" Bowling");
-        for(int i=0; i<3; i++){
-            System.out.println(bowlerTeam1.get(i).getName() + bowlerTeam1.get(i).getWicketsTaken());
+        System.out.println(bowler1.getFirst().getTeam()+" Bowling");
+        for(int i=0; i<2; i++){
+            System.out.println(bowler1.get(i).getName() +" "+ bowlerTeam1.get(i).getWicketsTaken());
         }
         System.out.println("-----------------------------------");
     }
 
     public void scoreCard(Match match){
         System.out.println("---"+match.getTeam1().getName()+" Batting---");
-        for (Player player : match.getTeam2().getPlayer()) {
-            System.out.println(player.getName() +"  "+ player.getRunsScored());
+        System.out.println(match.getTeam1().getName()+"   "+match.getTeam1Runs()+"-"+match.getTeam1WicketsFallen());
+        for (Player player : match.getTeam1().getPlayer()) {
+            if(player instanceof RunsScored batter)
+                System.out.println(player.getName() +"  "+ batter.getRunsScored());
         }
 
         System.out.println("---"+match.getTeam2().getName()+" Bowling---");
-        for (Player player : match.getTeam1().getPlayer()) {
-            if(player.getRole().contains("owl") || player.getRole().contains("oun"))
-                System.out.println(player.getName() +"  " +player.getWicketsTaken());
+        for (Player player : match.getTeam2().getPlayer()) {
+            if(player instanceof WicketsTaken bowler)
+                System.out.println(player.getName() +"  " +bowler.getWicketsTaken());
         }
 
         System.out.println("---"+match.getTeam2().getName()+" Batting---");
+        System.out.println(match.getTeam2().getName()+"   "+match.getTeam2Runs()+"-"+match.getTeam2WicketsFallen());
         for (Player player : match.getTeam2().getPlayer()) {
-            System.out.println(player.getName() + "  " + player.getRunsScored());
+            if( player instanceof RunsScored batter)
+                System.out.println(player.getName() + "  " + batter.getRunsScored());
         }
 
         System.out.println("---"+match.getTeam1().getName()+" Bowling");
         for (Player player : match.getTeam1().getPlayer()) {
-            if(player.getRole().contains("owl") || player.getRole().contains("oun"))
-                System.out.println(player.getName() + "  " + player.getWicketsTaken());
+            if(player instanceof WicketsTaken bowler)
+                System.out.println(player.getName() + "  " + bowler.getWicketsTaken());
         }
     }
 
@@ -646,7 +692,27 @@ public class Tournament {
             }
         }
     }
-}
+
+    public void writeMatchData(Match match)  {
+        File file = new File("match.txt");
+        if(!file.exists()){
+            try{
+                file.createNewFile();
+            } catch (IOException e){
+                System.out.println("Error in creating new file "+file.getName());
+            }
+        }
+
+        try(FileWriter writer = new FileWriter(file,true)){
+            writer.write(match.writeMatchResult());
+        } catch (IOException e){
+            System.out.println("Error in writing data to Match File");
+        }
+
+        }
+
+
+    }
 
 
 

@@ -20,6 +20,7 @@ public abstract class Player {
     public Player(String name, String jerseyNumber, String role, String age, String country, String team) {
         this.name = name;
         this.jerseyNumber = jerseyNumber;
+        this.role = role;
         this.age = age;
         this.country = country;
         this.team = team;

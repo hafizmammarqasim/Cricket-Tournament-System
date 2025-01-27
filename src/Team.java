@@ -8,7 +8,7 @@ public class Team {
     private String opposition;
     private ArrayList<Player> players = new ArrayList<>();
 
-    private TeamStats stats;
+    private final TeamStats stats = new TeamStats();
 
     public Team(String teamName, String captain, String coach,String city) {
         this.teamName = teamName;
@@ -76,10 +76,6 @@ public class Team {
         return stats;
     }
 
-    public void setStats(TeamStats stats) {
-        this.stats = stats;
-    }
-
     public String initialFileData(){
         return teamName+","+opposition+","+captain+","+coach+","+ city+"\n";
     }
@@ -89,7 +85,6 @@ public class Team {
             for(Player player: players){
                 player.displayData();
             }
-            System.out.println("Team 1 ended");
         }
     }
 

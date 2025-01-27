@@ -1,12 +1,24 @@
-Shaheen,Lahore,Karachi,23,3,true
-Sikandar Raza,Lahore,Karachi,78,2,true
-Abdullah Shafiq,Lahore,Karachi,32,0,true
-Kamran Ghulam,Lahore,Karachi,40,0,true
-Fakhar Zaman,Lahore,Karachi,0,0,true
-Rassie Van Der Dussen,Lahore,Karachi,0,0,true
-Shan Masood,Karachi,Lahore,23,0,true
-Sharjeel Khan,Karachi,Lahore,45,0,true
-Hasan Ali,Karachi,Lahore,2,1,true
-Qasim Akram,Karachi,Lahore,56,2,true
-Irfan Khan,Karachi,Lahore,38,0,true
-Kieron Pollard,Karachi,Lahore,0,1,true
+Shaheen,Lahore,Karachi,1,false
+Abdullah,Lahore,Karachi,43,false
+Haris,Lahore,Karachi,0,false
+Sikandar,Lahore,Karachi,23,false
+Wiese,Lahore,Karachi,20,2,false
+Fakhar,Lahore,Karachi,0,false
+Shan,Karachi,Lahore,30,false
+Imad,Karachi,Lahore,2,2,false
+Amir,Karachi,Lahore,1,false
+Nabi,Karachi,Lahore,1,false
+Vince,Karachi,Lahore,0,false
+Hamza,Karachi,Lahore,0,false
+Shaheen,Lahore,Karachi,0,false
+Abdullah,Lahore,Karachi,35,false
+Haris,Lahore,Karachi,1,false
+Sikandar,Lahore,Karachi,30,false
+Wiese,Lahore,Karachi,45,2,false
+Fakhar,Lahore,Karachi,0,false
+Shan,Karachi,Lahore,21,false
+Imad,Karachi,Lahore,32,2,false
+Amir,Karachi,Lahore,1,false
+Nabi,Karachi,Lahore,12,false
+Vince,Karachi,Lahore,0,false
+Hamza,Karachi,Lahore,0,false

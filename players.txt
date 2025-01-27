@@ -1,3 +1,12 @@
 Shaheen,10,Bowler,29,Pakistan,Lahore
 Abdullah,37,Batsman,25,Pakistan,Lahore
 Haris,150,Bowler,31,Pakistan,Lahore
+Sikandar,34,Batsman,36,Zimbabwe,Lahore
+Wiese,67,All Rounder,31,Namibia,Lahore
+Fakhar,39,Batsman,33,Pakistan,Lahore
+Shan,33,Batsman,34,Pakistan,Karachi
+Imad,88,All Rounder,36,Pakistan,Karachi
+Amir,90,Bowler,35,Pakistan,Karachi
+Nabi,57,Batsman,38,Afghanistan,Karachi
+Vince,78,Batsman,34,England,Karachi
+Hamza,55,Bowler,33,Pakistan,Karachi

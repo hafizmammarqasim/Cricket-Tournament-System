@@ -1,12 +1,9 @@
 import java.util.Comparator;
 
-public class SortingRuns implements Comparator<Player> {
+public class SortingRuns implements Comparator<RunsScored> {
 
     @Override
-    public int compare(Player o1, Player o2) {
-        if (o1 instanceof RunsScored batsman1 && o2 instanceof RunsScored batsman2)
-            return Integer.compare(batsman1.getRunsScored(), batsman2.getRunsScored());
-        else
-            return 0;
+    public int compare(RunsScored o1, RunsScored o2) {
+            return Integer.compare(o2.getRunsScored(), o1.getRunsScored());
         }
 }
