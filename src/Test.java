@@ -27,6 +27,9 @@ public class Test {
                 case 4:
                     tournament.Schedule();
                     break;
+                case 5:
+                    tournament.pointsTable();
+                    break;
             }
         }
     }

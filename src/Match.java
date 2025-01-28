@@ -149,7 +149,7 @@ public class Match{
     }
 
     //Display Matches For Schedule
-    public String displayMatch(){
+    public String displayData(){
         return team1.getName() +"  vs  "+ team2.getName() + "          || Ground: "+ venue.getGroundName()+ "   ||  Date: "+date+"  ||   Result: "+result;
     }
 
@@ -157,11 +157,13 @@ public class Match{
         if (Team1Runs > Team2Runs) {
             result = team1.getName()+" Won";
             team1.getStats().setMatchesWon(team1.getStats().getMatchesWon() + 1);
-            team1.getStats().setPoints(team1.getStats().getPoints() + 2);
+            team1.getStats().setPoints(2);
+            System.out.println(team1.getName()+" "+team1.getStats().getPoints());
         } else if (Team2Runs > Team1Runs) {
             result = team2.getName()+" Won";
             team2.getStats().setMatchesWon(team2.getStats().getMatchesWon() + 1);
-            team2.getStats().setPoints(team2.getStats().getPoints() + 2);
+            team2.getStats().setPoints(2);
+            System.out.println(team2.getName()+" "+team2.getStats().getPoints());
         } else {
             result = "Tie";
         }

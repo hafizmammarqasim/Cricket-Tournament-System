@@ -10,15 +10,3 @@ Amir,Karachi,Lahore,1,false
 Nabi,Karachi,Lahore,1,false
 Vince,Karachi,Lahore,0,false
 Hamza,Karachi,Lahore,0,false
-Shaheen,Lahore,Karachi,0,false
-Abdullah,Lahore,Karachi,35,false
-Haris,Lahore,Karachi,1,false
-Sikandar,Lahore,Karachi,30,false
-Wiese,Lahore,Karachi,45,2,false
-Fakhar,Lahore,Karachi,0,false
-Shan,Karachi,Lahore,21,false
-Imad,Karachi,Lahore,32,2,false
-Amir,Karachi,Lahore,1,false
-Nabi,Karachi,Lahore,12,false
-Vince,Karachi,Lahore,0,false
-Hamza,Karachi,Lahore,0,false

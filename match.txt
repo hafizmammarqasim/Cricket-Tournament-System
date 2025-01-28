@@ -1,2 +1,6 @@
-
 Lahore,Karachi,110,65,3,3,3,3,Lahore Won,true
+Lahore,Islamabad,120,90,3,3,3,3,Lahore Won,true
+Lahore,Peshawar,130,80,3,4,4,3,Lahore Won,true
+Karachi,Islamabad,100,150,3,4,3,4,Islamabad Won,true
+Karachi,Quetta,180,200,2,1,2,1,Quetta Won,true
+Islamabad,Peshawar,150,100,3,3,3,3,Islamabad Won,true

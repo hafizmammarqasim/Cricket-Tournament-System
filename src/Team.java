@@ -8,7 +8,7 @@ public class Team {
     private String opposition;
     private ArrayList<Player> players = new ArrayList<>();
 
-    private final TeamStats stats = new TeamStats();
+    private TeamStats stats = new TeamStats();
 
     public Team(String teamName, String captain, String coach,String city) {
         this.teamName = teamName;
@@ -17,6 +17,13 @@ public class Team {
         this.city = city;
     }
 
+    public Team(Team team){
+        this.teamName = team.getTeamName();
+        this.captain = team.getCaptain();
+        this.coach = team.getCoach();
+        this.city = team.getCity();
+        this.stats = new TeamStats(team.getStats());
+    }
     public String getCaptain() {
         return captain;
     }
@@ -36,6 +43,7 @@ public class Team {
     public void setPlayerList(){
         this.players = new ArrayList<>();
     }
+
     public ArrayList<Player> getPlayer(){
         return players;
     }

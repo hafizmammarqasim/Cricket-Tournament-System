@@ -1,4 +1,4 @@
-public class Bowler extends Player implements WicketsTaken {
+public class Bowler extends Player implements WicketsTaken, Displayable {
     private int wicketsTaken;
 
     public Bowler(int wicketsTaken) {

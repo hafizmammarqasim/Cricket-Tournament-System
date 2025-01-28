@@ -1,4 +1,4 @@
-public class Keeper extends Player {
+public class Keeper extends Player implements Displayable{
     private int catches;
     private int stumpings;
 

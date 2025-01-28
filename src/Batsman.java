@@ -1,9 +1,5 @@
-public class Batsman extends Player implements RunsScored{
+public class Batsman extends Player implements RunsScored,Displayable{
     private int runsScored;
-
-    public Batsman(int runsScored) {
-        this.runsScored = runsScored;
-    }
 
     public Batsman(String name, String role) {
         super(name, role);

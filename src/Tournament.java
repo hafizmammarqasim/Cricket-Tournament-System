@@ -39,6 +39,8 @@ public class Tournament {
     public void choiceForNewTeam(File file){
         System.out.println("--------------------");
         System.out.println("Add new Team?");
+        System.out.println("1. Add Team");
+        System.out.println("0. Back");
         int choice = myObj.nextInt();
         myObj.nextLine();
 
@@ -50,6 +52,7 @@ public class Tournament {
                 return;
             default:
                 System.out.println("Invalid Entry");
+                choiceForNewTeam(file);
         }
 
     }
@@ -103,13 +106,13 @@ public class Tournament {
                 for (int j=i; j<size; j++) {
                     if (teams.get(i) != teams.get(j)){
                         tempGround = checkGround(teams.get(i),teams.get(j));
-                        tempMatch = new Match(teams.get(i),teams.get(j),(tempGround!=null)? tempGround : new Ground("Gadafi","Lahore","30000","94m") );
+                        tempMatch = new Match(teams.get(i),teams.get(j),(tempGround!=null)? tempGround : new Ground("Qadafi","Lahore","30000","94m") );
                         matches.add(tempMatch);
                     }}}
 
             if(!matches.isEmpty()){
-                for(Match matches: matches){
-                    remainingMatches.addNewMatch(matches); }
+                for(Match match: matches){
+                    remainingMatches.addNewMatch(match); }
             }
 
             File file = new File("match.txt");
@@ -122,7 +125,7 @@ public class Tournament {
             }
 
             //Sorting Matches
-            int counter =0;
+
             boolean status;
             do{
                 status = false;
@@ -192,6 +195,7 @@ public class Tournament {
                 String[] data = line.split(",");
                 if(match.getTeam1().getName().equals(data[0]) && match.getTeam2().getName().equals(data[1])){
                     match.assignData(data[2],data[3],data[4],data[5],data[6],data[7],data[8],data[9]);
+                    match.decideWinner();
                     return;
                 }
             }
@@ -399,12 +403,12 @@ public class Tournament {
 
 
     //Match Creation Class
-    public void match(Match match) throws IOException{
+    public void match(Match match){
        readPlayersRunsFromFile(match);
         teamScores(match);
     }
 
-    public void teamScores(Match match) throws IOException{
+    public void teamScores(Match match) {
 
         if(!match.getPlayStatus()) {
             System.out.println("Enter " + match.getTeam1().getName() + " wickets fallen");
@@ -432,7 +436,7 @@ public class Tournament {
         displayData(match);
     }
 
-    public void writePlayersRunsToFile(Team team) throws IOException {
+    public void writePlayersRunsToFile(Team team) {
         File file = new File("playersScores.txt");
         if(file.exists()){
             try (FileWriter writer = new FileWriter(file,true)){
@@ -441,12 +445,18 @@ public class Tournament {
             } catch (IOException e){
                 System.out.println("Error in opening file for Writing player's data");
             }
-        } else if(file.createNewFile()){
-            try (FileWriter writer = new FileWriter(file)){
-                for (Player player: team.getPlayer())
-                    writer.write(player.writeToPlayersScores());
+        } else{
+            try{
+                if(file.createNewFile()){
+                    try (FileWriter writer = new FileWriter(file)){
+                        for (Player player: team.getPlayer())
+                            writer.write(player.writeToPlayersScores());
+                    } catch (IOException e){
+                        System.out.println("Error in opening file for Writing player's data");
+                    }
+                }
             } catch (IOException e){
-                System.out.println("Error in opening file for Writing player's data");
+                System.out.println("Error in creating new FILE " +file.getName());
             }
         }
     }
@@ -662,20 +672,20 @@ public class Tournament {
         }
     }
 
-    public void writeTeamsToFile() {
-        if (!teams.isEmpty()) {
-            File file = new File("teams.txt");
-            if (file.exists()) {
-                try (FileWriter writer = new FileWriter(file)) {
-                    for (Team team : teams) {
-                        writer.write(team.initialFileData());
-                    }
-                } catch (IOException e) {
-                    System.out.println(e.getMessage());
-                }
-            }
-        }
-    }
+//    public void writeTeamsToFile() {
+//        if (!teams.isEmpty()) {
+//            File file = new File("teams.txt");
+//            if (file.exists()) {
+//                try (FileWriter writer = new FileWriter(file)) {
+//                    for (Team team : teams) {
+//                        writer.write(team.initialFileData());
+//                    }
+//                } catch (IOException e) {
+//                    System.out.println(e.getMessage());
+//                }
+//            }
+//        }
+//    }
 
     public void readGround(){
         String line;
@@ -697,20 +707,34 @@ public class Tournament {
         File file = new File("match.txt");
         if(!file.exists()){
             try{
-                file.createNewFile();
+                if(file.createNewFile()){
+                    System.out.println("New File Created"+ file.getName());
+                }
             } catch (IOException e){
                 System.out.println("Error in creating new file "+file.getName());
             }
         }
 
-        try(FileWriter writer = new FileWriter(file,true)){
-            writer.write(match.writeMatchResult());
-        } catch (IOException e){
-            System.out.println("Error in writing data to Match File");
-        }
+            try(FileWriter writer = new FileWriter(file,true)){
+                writer.write(match.writeMatchResult());
+            } catch (IOException e){
+                System.out.println("Error in writing data to Match File");
+            }
 
         }
 
+        public void pointsTable(){
+
+            ArrayList<Team> sortedTeams = new ArrayList<>();
+            for(Team mainList:teams){
+                sortedTeams.add(new Team(mainList));
+            }
+            sortedTeams.sort(new PointsTable());
+
+            for (Team team:sortedTeams){
+                System.out.println(team.getName()+"        "+team.getStats().getPoints());
+            }
+        }
 
     }
 

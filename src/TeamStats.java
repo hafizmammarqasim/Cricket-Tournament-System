@@ -6,12 +6,23 @@ public class TeamStats {
     private int wicketsTaken;
     private int points;
 
+    public TeamStats (){
+
+    }
+    public TeamStats(TeamStats stats){
+        this.matchesPlayed = stats.getMatchesPlayed();
+        this.matchesLost = stats.getMatchesLost();
+        this.matchesWon = stats.getMatchesWon();
+        this.runsScored = stats.getRunsScored();
+        this.wicketsTaken = stats.getWicketsTaken();
+        this.points = stats.getPoints();
+    }
     public int getPoints() {
         return points;
     }
 
     public void setPoints(int points) {
-        this.points+= points;
+        this.points= this.points+ points;
     }
 
     public int getMatchesPlayed() {
